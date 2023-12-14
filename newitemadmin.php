@@ -57,6 +57,10 @@ require 'logincheck.php';
                             Register
                         </a>
 
+                        <a class="nav-link" href="manageuser.php">
+                            Manage User
+                        </a>
+
                         <a class="nav-link" href="logout.php">
                             Logout
                         </a>

@@ -21,7 +21,7 @@ if(isset($_POST['login'])){
 
         $_SESSION['login'] = 'TRUE';
         $_SESSION['username'] = $username;
-        header("location:index.php");
+        header("location:login.php");
     }
 
     else{
@@ -38,6 +38,10 @@ if(isset($_POST['login'])){
             die("Connection failed: " . mysqli_connect_error());
     }
 }
+
+
+
+
 
 if(isset($_POST['register'])){
     $username =$_POST['username'];
