@@ -51,14 +51,14 @@ require 'function.php';
                                             <label for="inputemail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <span class="form-floating-text : " style="width: 250px;">ROLE</span>
+                                            <span class="form-floating-text" style="width: 250px;">ROLE</span>
                                             <br/>
-                                            <select class="form-select" arial-label="Default select Example" require>
-                                                <option selected>Select Role</option>
-                                                <option value="Cashier">Cashier</option>
-                                                <option value="Customer">Customer</option>
+                                            <select class="form-select" aria-label="Default select Example" name="role" required>
+                                                <option selected value="Customer">Customer</option>
+                                                
                                             </select>
                                         </div>
+
                                         <!-- <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" name="alamat" type="text" placeholder="Enter Address" required />
                                             <label for="inputEmail">Address</label>
@@ -71,12 +71,12 @@ require 'function.php';
                                             <div class="d-grid"><a class="btn btn-primary btn-block" href="login.php">Create Account</a></div>
                                         </div> -->
                                         <div class="d-flex justify-content-center mt-4 mb-0">
-                                            <button type="submit" name="register" class="btn btn-primary">Create Account</button>
+                                            <button type="submit" name="registercustomer" class="btn btn-primary">Create Account</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="manageuser.php">Go Back</a></div>
+                                    <div class="small"><a href="indexadmin.php">Go Back</a></div>
                                 </div>
                             </div>
                         </div>

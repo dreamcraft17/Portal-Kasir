@@ -1,20 +1,20 @@
 <?php
 
 require 'logincheck.php';
-if (isset($_POST['kirim_pesan'])) {
-    $nomorPengirim = '081269071846'; // Nomor WhatsApp pengirim tetap
-    $pesan = 'Halo'; // Pesan default
+// if (isset($_POST['kirim_pesan'])) {
+//     $nomorPengirim = '081269071846'; // Nomor WhatsApp pengirim tetap
+//     $pesan = 'Halo'; // Pesan default
 
-    // Mengekstrak nomor penerima dari form
-    $nomorPenerima = $_POST['phonenumber'];
+//     // Mengekstrak nomor penerima dari form
+//     $nomorPenerima = $_POST['phonenumber'];
 
-    // Membuat URL untuk mengirim pesan WhatsApp
-    $urlWhatsApp = "https://wa.me/$nomorPenerima/?text=" . urlencode($pesan) . "&source=$nomorPengirim";
+//     // Membuat URL untuk mengirim pesan WhatsApp
+//     $urlWhatsApp = "https://wa.me/$nomorPenerima/?text=" . urlencode($pesan) . "&source=$nomorPengirim";
 
-    // Redirect ke URL WhatsApp untuk memulai obrolan
-    header("Location: $urlWhatsApp");
-    exit;
-}
+//     // Redirect ke URL WhatsApp untuk memulai obrolan
+//     header("Location: $urlWhatsApp");
+//     exit;
+// }
 //count amount of Customer
 $h1=mysqli_query($conn,"select * from customer ");
 $h2=mysqli_num_rows($h1); //amount of customer
@@ -59,10 +59,10 @@ $h2=mysqli_num_rows($h1); //amount of customer
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.php">Cashier Application</a>
+        
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-
+        <a class="navbar-brand ps-3" href="index.php">Portal Kasir</a>
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -199,11 +199,11 @@ $h2=mysqli_num_rows($h1); //amount of customer
                                                 <button type="button" class="btn btn-danger  " data-toggle="modal" data-target="#delete<?=$idcst;?>">
                                                     Delete
                                                 </button>
-                                                <form method="post" class="whatsapp-form">
+                                                <!-- <form method="post" class="whatsapp-form">
                                                     <label for="phonenumber">Nomor WhatsApp:</label>
                                                     <input type="text" class="phonenumber-input" name="phonenumber" placeholder="6281234567890" required>
                                                     <input type="submit" name="kirim_pesan" value="Kirim Pesan WhatsApp" class="kirim-pesan-button">
-                                                </form>
+                                                </form> -->
                                                 
                                               
                                         </td>

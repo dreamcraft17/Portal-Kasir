@@ -10,6 +10,7 @@ if(isset($_POST['login'])){
     //iniate var
     $username   =$_POST['username'];
     $password   =$_POST['password'];
+    
 
     $check      = mysqli_query($conn,"select * from user where username='$username' and us_pass='$password'");
     $count      = mysqli_num_rows($check);
@@ -43,16 +44,36 @@ if(isset($_POST['register'])){
     $password = $_POST['password'];
     $name = $_POST['name'];
     $email    = $_POST['email'];
+    $role      =$_POST['role'];
 
-    $insert = mysqli_query($conn,"insert into user(username,us_pass,us_name,us_email) values('$username','$password','$name','$email')");
+    $insert = mysqli_query($conn,"insert into user(username,us_pass,us_name,us_email,us_role) values('$username','$password','$name','$email','$role')");
 
     if($insert){
         echo 'Register Succesfully';
-        header("location:login.php");
+        header("location:manageuser.php");
     }else{
         echo 'Register Failed';
     }
 }
+
+if(isset($_POST['registercustomer'])){
+    $username =$_POST['username'];
+    $password = $_POST['password'];
+    $name = $_POST['name'];
+    $email    = $_POST['email'];
+    $role      =$_POST['role'];
+
+    $insert = mysqli_query($conn,"insert into user(username,us_pass,us_name,us_email,us_role) values('$username','$password','$name','$email','$role')");
+
+    if($insert){
+        echo 'Register Succesfully';
+        header("location:manageuser.php");
+    }else{
+        echo 'Register Failed';
+    }
+}
+
+
 
 if(isset($_POST['newitem'])){
     $productname    = $_POST['productname'];
@@ -493,11 +514,12 @@ if(isset($_POST['deleteproduct'])){
 
      //edituser
      if(isset($_POST['edituser'])){
-        $idu = $_POST['idu']; //iduser
+        $iduser = $_POST['iduser']; //iduser
         $username   = $_POST['username'];
         $password   = $_POST['password'];
+        $role       = $_POST['role'];
 
-        $query = mysqli_query($conn,"updae user set username='$username', password='$password' where iduser='$idu'");
+        $query = mysqli_query($conn,"UPDATE user set username='$username', us_pass='$password', us_role='$role' where id_user='$iduser'");
 
         if($query)
         {
@@ -510,6 +532,20 @@ if(isset($_POST['deleteproduct'])){
             
             ';
 
+        }
+     }
+
+     if(isset($_POST['deleteuser'])){
+        $iduser =$_POST['iduser'];
+
+        $query = mysqli_query($conn,"delete from user where id_user = '$iduser'");
+        if($query){
+            header('location: manageuser.php');
+        }else{
+            echo '
+            <script>alert("FAILED!");
+            window.location.href="manageuser.php"
+            </script>';
         }
      }
 

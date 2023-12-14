@@ -13,7 +13,7 @@ if($op=='delete'){
 
 
 //count amount of order
-$h1=mysqli_query($conn,"select * from User ");
+$h1=mysqli_query($conn,"select * from orders ");
 $h2=mysqli_num_rows($h1); //amount of order
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ $h2=mysqli_num_rows($h1); //amount of order
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>User Data</title>
+    <title>Order Data</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="css/styles.css" rel="stylesheet" />
@@ -37,11 +37,12 @@ $h2=mysqli_num_rows($h1); //amount of order
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-       
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 ml-2" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.php">Portal Kasir</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
- <!-- Navbar Brand-->
- <a class="navbar-brand ps-3" href="index.php">Portal Kasir</a>
+        
+
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -49,38 +50,29 @@ $h2=mysqli_num_rows($h1); //amount of order
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Menu</div>
-                        <a class="nav-link" href="indexadmin.php">
+                        <a class="nav-link" href="index.php">
                             <div class="sb-nav-link-icon"><i class="far fa-clipboard"></i></div>
                             Order
                         </a>
-                        <a class="nav-link" href="stockadmin.php">
+                        <a class="nav-link" href="stock.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                             Stock
                         </a>
-                        <a class="nav-link" href="newitemadmin.php">
+                        <a class="nav-link" href="newitem.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dolly-flatbed"></i></div>
                             New Item
                         </a>
-                        <a class="nav-link" href="customeradmin.php">
+                        <a class="nav-link" href="customer.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-dolly-flatbed"></i></div>
                             Manage Customer
                         </a>
-                        
-                        <a class="nav-link" href="register.php">
-                            Register
-                        </a>
-
-                        <a class="nav-link" href="manageuser.php">
-                            Manage User
-                        </a>
-
                         <a class="nav-link" href="logout.php">
                             Logout
                         </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                <div class="small">
+                    <div class="small">
                         <?php
                         // Starting session
                        
@@ -97,87 +89,78 @@ $h2=mysqli_num_rows($h1); //amount of order
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">user Data</h1>
+                    <h1 class="mt-4">Order Data</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"> Welcome to this page!</li>
                     </ol>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Jumlah User: <?=$h2;?></div>
+                                <div class="card-body">Jumlah Pesanan : <?=$h2;?></div>
                             </div>
                         </div>
 
                     </div>
 
                     <!-- Button to Open the Modal -->
-                    <a href="register.php"  class="btn btn-warning mb-4 ml-1" >
-                        Add new user
-                    </a>
+                    <button type="button" class="btn btn-warning mb-4 ml-1" data-toggle="modal" data-target="#myModal">
+                        Add new Order
+                    </button>
 
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            user Data
+                            Order Data
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>user Id</th>
-                                        <th>username</th>
-                                        <th>password</th>
-                                        <th>Role</th>
-                                        <th>action</th>
-                                        <!-- <th>Amount</th>
-                                        <th>Action</th> -->
+                                        <th>Order Id</th>
+                                        <th>Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ambil    = mysqli_query($conn, "select * from user");
+                                    $ambil    = mysqli_query($conn, "select * from orders p, customer cst where p.idcustomer=cst.idcustomer");
                                     while ($p = mysqli_fetch_array($ambil)) {
-                                        $iduser         = $p['id_user'];
-                                        $username       =$p['username'];
-                                        $password       = $p['us_pass'];
-                                        $role           =$p['us_role'];
-                                        // $customername    = $p['customername'];
-                                        // $address         = $p['address'];  
+                                        $idorder         = $p['idorder'];
+                                        $date            = $p['date'];
+                                        $customername    = $p['customername'];
+                                        $address         = $p['address'];  
                                         // $price          = $p['price'];
                                         // $stock          = $p['stock'];
 
                                         //count the amount
-                                        $countammount = mysqli_query($conn,"select * from user where id_user='$iduser'");
+                                        $countammount = mysqli_query($conn,"select * from orderdetail where idorder='$idorder'");
                                         $ammount      = mysqli_num_rows($countammount);
 
 
                                     ?>
                                         <tr>
-                                            <td><?= $iduser; ?></td>
-                                            <td><?= $username;?></td>
-                                            <td><?= $password; ?></td>
-                                            <td><?=$role;?></td>
-                                            <!-- <td><?= $customername; ?> - <?=$address;?></td>
-                                            <td><?= $ammount; ?></td> -->
+                                            <td><?= $idorder; ?></td>
+                                            <td><?= $date; ?></td>
+                                            <td><?= $customername; ?> - <?=$address;?></td>
+                                            <td><?= $ammount; ?></td>
                                             <td>
-                                                <!-- <a href="view.php?idp=<?=$idorder;?>" class="btn  btn-primary" target="blank">View Order</a>  -->
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$iduser;?>">
-                                                        Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger  " data-toggle="modal" data-target="#delete<?=$iduser;?>">
+                                                <a href="view.php?idp=<?=$idorder;?>" class="btn  btn-primary" target="blank">View Order</a> 
+                                                <button type="button" class="btn btn-danger  " data-toggle="modal" data-target="#delete<?=$idorder;?>">
                                                         Delete
                                                 </button>
                                             </td>
                                         </tr>
 
                                          <!-- modal delete -->
-                                     <div class="modal fade" id="delete<?=$iduser;?>">
+                                     <div class="modal fade" id="delete<?=$idorder;?>">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
 
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Delete user <?=$username;?></h4>
+                                                    <h4 class="modal-title">Delete Order Data</h4>
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
 
@@ -185,58 +168,13 @@ $h2=mysqli_num_rows($h1); //amount of order
 
                                                     <!-- Modal body -->
                                                     <div class="modal-body">
-                                                        Are you sure want to delete this user data?
-                                                        <input type="hidden" name="iduser" value="<?=$iduser;?>">
+                                                        Are you sure want to delete this order data?
+                                                        <input type="hidden" name="ido" value="<?=$idorder;?>">
                                                     </div>
 
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success" name="deleteuser">Yes</button>
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                     <!-- modal edit -->
-                                     <div class="modal fade" id="edit<?=$iduser;?>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">edit user <?=$username;?></h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-
-                                                <form method="post">
-
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                    <div class=" mb-3">
-                                                        <input type="text" name="username" class="form-control" placeholder="User Name" value="<?= $username;?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <input type="text" name="password" class="form-control" placeholder="password" value="<?=$password;?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                        <!-- <span style="width: 250px;">ROLE</span> -->
-                                                        <select name="role" aria-label="Default select example" class="form-select">
-                                                            <option selected>Select Role</option>
-                                                            <option value="Cashier" <?= ($role == 'Cashier') ? 'selected' : ''; ?>>Cashier</option>
-                                                            <option value="Customer" <?= ($role == 'Customer') ? 'selected' : ''; ?>>Customer</option>
-                                                            <option value="admin" <?= ($role == 'Super User') ? 'selected' : ''; ?>>Super User</option>
-                                                        </select>
-
-                                                        </div>
-                                                        <input type="hidden" name="iduser" value="<?=$iduser;?>">
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success" name="edituser">Submit</button>
+                                                        <button type="submit" class="btn btn-success" name="deleteorder">Submit</button>
                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                     </div>
 
@@ -285,7 +223,7 @@ $h2=mysqli_num_rows($h1); //amount of order
 
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">Add new user</h4>
+                                <h4 class="modal-title">Add new Order</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
@@ -293,7 +231,7 @@ $h2=mysqli_num_rows($h1); //amount of order
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                Choose User
+                                Choose Customer
                                 <select name="idcustomer" class="form-control">
 
                                   <?php

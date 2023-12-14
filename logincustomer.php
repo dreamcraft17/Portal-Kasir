@@ -1,4 +1,4 @@
-    <?php
+<?php
     require 'function.php';
 
 
@@ -39,7 +39,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-5">
                                     <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Login Admin</h3></div>
+                                        <div class="card-header"><h3 class="text-center font-weight-light my-4">Login Customer</h3></div>
                                         <div class="card-body">
 
 
@@ -63,7 +63,7 @@
 
                                         </div>
                                         <div class="card-footer text-center py-3">
-                                            <div class="small"><a href="register.php">Need an account? Sign up!</a></div>
+                                            <div class="big"><a href="register.php">Belum punya akun? Daftar!</a></div>
                                         </div>
                                     </div>
                                 </div>
